@@ -1,9 +1,9 @@
-# Accessify: Login automático para la UPC
+# Login Verd: Auto Login para la UPC
 
 Extensión de navegador (Chrome / Edge / Brave) que inicia sesión automáticamente en
 **https://login.upc.edu/**, incluido el segundo factor de autenticación (2FA), con un solo clic.
 
-Código **open source** (MIT): [Rexher74/AccessifyUPC](https://github.com/Rexher74/AccessifyUPC).
+Código **open source** (MIT): [Rexher74/LoginVerd](https://github.com/Rexher74/LoginVerd).
 
 La página de login de la UPC usa **Keycloak**. Esta extensión localiza los campos por sus
 identificadores estables (`#username`, `#password`, `#otp`, `#kc-login`), por lo que funciona
@@ -21,7 +21,7 @@ los identificadores no).
    - Rellena usuario y contraseña y pulsa **Entra**.
    - Espera a la redirección a la página del 2FA.
    - Si la UPC muestra **varios dispositivos OTP**, selecciona automáticamente el tuyo
-     (por defecto **«UPC Accessify»**). Esto es importante: el dispositivo marcado por defecto
+     (por defecto **«Login Verd»**). Esto es importante: el dispositivo marcado por defecto
      suele ser otro, y enviar el código contra el dispositivo equivocado falla.
    - Genera el código de 6 dígitos a partir de la clave del QR (algoritmo TOTP, el mismo que
      Google Authenticator / Authy), lo rellena y pulsa **Entra**.
@@ -29,8 +29,8 @@ los identificadores no).
 El código 2FA **se calcula en tu navegador** en el momento exacto del envío; no se guarda ningún
 código, solo la clave secreta.
 
-> **Nombre del dispositivo:** la coincidencia ignora mayúsculas y espacios, así que «UPCAccessify»,
-> «UPC Accessify» y «upc accessify» se consideran el mismo. Si registraste el dispositivo con otro
+> **Nombre del dispositivo:** la coincidencia ignora mayúsculas y espacios, así que «LoginVerd»,
+> «Login Verd» y «login verd» se consideran el mismo. Si registraste el dispositivo con otro
 > nombre, ponlo en el campo **«Nombre del dispositivo»** de la configuración.
 
 ---
@@ -57,10 +57,10 @@ La propia página de opciones incluye estas instrucciones con capturas.
 2. En **«Autenticación de dos factores»**, haz clic en **«Configurar Aplicación autenticadora»**
    (ver `assets/img1.png`).
 3. Aparecerá un **código QR** (ver `assets/img2.png`). **Haz una captura o foto del QR y guárdala**:
-   la necesitarás para configurar UPC Accessify en cada navegador/dispositivo.
+   la necesitarás para configurar Login Verd en cada navegador/dispositivo.
 4. Sube esa imagen del QR en la página de opciones de la extensión (zona «Arrastra el QR»). La
    extensión empezará a mostrar el **código de un solo uso** en vivo.
-5. En la UPC, en **«Nombre del dispositivo»**, escribe **`UPCAccessify`**.
+5. En la UPC, en **«Nombre del dispositivo»**, escribe **`LoginVerd`**.
    (Si usas otro nombre, ponlo también en el campo «Nombre del dispositivo» de la extensión.)
 6. Copia el **código de un solo uso** que muestra la extensión en el campo
    **«Código de un solo uso»** de la UPC.
@@ -124,4 +124,4 @@ auto-login-upc/
 ## Licencia
 
 Este proyecto es **open source** bajo la licencia MIT. Ver [LICENSE](LICENSE) y el repositorio en
-[github.com/Rexher74/AccessifyUPC](https://github.com/Rexher74/AccessifyUPC).
+[github.com/Rexher74/LoginVerd](https://github.com/Rexher74/LoginVerd).

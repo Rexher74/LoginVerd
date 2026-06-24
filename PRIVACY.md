@@ -1,10 +1,10 @@
-# Política de Privacidad — Accessify para la UPC
+# Política de Privacidad — Login Verd para la UPC
 
 Última actualización: 23 de junio de 2026
 
 ## Datos que maneja la extensión
 
-Accessify almacena, **únicamente en el dispositivo del usuario**, los siguientes datos para poder iniciar sesión automáticamente en `login.upc.edu`:
+Login Verd almacena, **únicamente en el dispositivo del usuario**, los siguientes datos para poder iniciar sesión automáticamente en `login.upc.edu`:
 
 - Nombre de usuario de la UPC
 - Contraseña de la UPC
@@ -25,4 +25,4 @@ El usuario puede borrar los datos en cualquier momento desde la página de opcio
 
 ## Contacto
 
-Para cualquier consulta: [github.com/Rexher74/AccessifyUPC](https://github.com/Rexher74/AccessifyUPC)
+Para cualquier consulta: [github.com/Rexher74/LoginVerd](https://github.com/Rexher74/LoginVerd)

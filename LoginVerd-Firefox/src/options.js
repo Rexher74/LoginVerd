@@ -1,7 +1,10 @@
 /*
- * options.js — Lógica de la página de configuración.
+ * options.js — Lógica de la página de configuración (versión Firefox).
  *  - Carga/guarda usuario, contraseña y la configuración TOTP.
- *  - Lee el QR desde una imagen con la API nativa BarcodeDetector.
+ *  - Lee el QR desde una imagen. Firefox no dispone de la API nativa
+ *    BarcodeDetector (a diferencia de Chrome), así que el lector principal
+ *    es jsQR (librería JS incluida en src/jsqr.js). Si algún día el navegador
+ *    expone BarcodeDetector, se usa esa por ser más rápida.
  *  - Muestra una vista previa en vivo del código 2FA para que el usuario
  *    confirme que coincide con su app de autenticación.
  */
@@ -92,16 +95,38 @@
     refreshPreview();
   }
 
-  // Lee un QR de una imagen usando la API nativa del navegador.
+  // Lee un QR de una imagen. Estrategia para Firefox:
+  //  1) BarcodeDetector si el navegador lo soporta (rápido; hoy no en Firefox).
+  //  2) jsQR sobre los píxeles de un <canvas> (funciona en Firefox escritorio y Android).
   async function decodeQr(file) {
     const bitmap = await createImageBitmap(file);
-    if (!("BarcodeDetector" in window)) {
-      throw new Error("BarcodeDetector no disponible");
+
+    if ("BarcodeDetector" in window) {
+      try {
+        const detector = new BarcodeDetector({ formats: ["qr_code"] });
+        const codes = await detector.detect(bitmap);
+        if (codes && codes.length) return codes[0].rawValue;
+      } catch (e) {
+        /* si falla, seguimos con el lector JS */
+      }
     }
-    const detector = new BarcodeDetector({ formats: ["qr_code"] });
-    const codes = await detector.detect(bitmap);
-    if (!codes || !codes.length) throw new Error("Sin códigos");
-    return codes[0].rawValue;
+
+    if (typeof jsQR !== "function") {
+      throw new Error("Lector de QR no disponible");
+    }
+
+    const { width, height } = bitmap;
+    const canvas = document.createElement("canvas");
+    canvas.width = width;
+    canvas.height = height;
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
+    ctx.drawImage(bitmap, 0, 0, width, height);
+    const imageData = ctx.getImageData(0, 0, width, height);
+    if (typeof bitmap.close === "function") bitmap.close();
+
+    const result = jsQR(imageData.data, width, height, { inversionAttempts: "attemptBoth" });
+    if (!result || !result.data) throw new Error("Sin códigos");
+    return result.data;
   }
 
   function markQrConfigured() {

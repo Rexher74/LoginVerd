@@ -4,12 +4,27 @@
   "short_name": "Login Verd",
   "version": "1.1.0",
   "description": "Inicia sesión automáticamente en login.upc.edu, incluido el segundo factor (2FA).",
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "loginverd@rexher.upc",
+      "strict_min_version": "140.0",
+      "data_collection_permissions": {
+        "required": ["none"]
+      }
+    },
+    "gecko_android": {
+      "strict_min_version": "142.0"
+    }
+  },
   "permissions": ["storage"],
   "host_permissions": ["https://login.upc.edu/*"],
   "background": {
-    "service_worker": "src/background.js"
+    "scripts": ["src/background.js"]
   },
-  "options_page": "src/options.html",
+  "options_ui": {
+    "page": "src/options.html",
+    "open_in_tab": true
+  },
   "action": {
     "default_popup": "src/popup.html",
     "default_title": "Login Verd para la UPC",
